@@ -28,6 +28,19 @@ export const servers = pgTable("servers", {
   bandwidth: integer("bandwidth").notNull(),
   incomingTraffic: integer("incoming_traffic").notNull().default(70),
   outgoingTraffic: integer("outgoing_traffic").notNull().default(70),
+  // Additional fields for server details
+  cpuModel: text("cpu_model").default(null),
+  cpuCores: integer("cpu_cores").default(null),
+  cpuThreads: integer("cpu_threads").default(null),
+  cpuSpeed: text("cpu_speed").default(null),
+  ramSize: text("ram_size").default(null),
+  ramType: text("ram_type").default(null),
+  diskSize: text("disk_size").default(null),
+  diskType: text("disk_type").default(null),
+  createdAt: text("created_at").default(null),
+  daysActive: integer("days_active").default(null),
+  incomingBandwidth: text("incoming_bandwidth").default(null),
+  outgoingBandwidth: text("outgoing_bandwidth").default(null),
 });
 
 export const insertServerSchema = createInsertSchema(servers).omit({

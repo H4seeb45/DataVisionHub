@@ -73,7 +73,19 @@ export class MemStorage implements IStorage {
         disk: 70,
         bandwidth: 80,
         incomingTraffic: 70,
-        outgoingTraffic: 80
+        outgoingTraffic: 80,
+        cpuModel: "Dual Xeon Gold 5317",
+        cpuCores: 24,
+        cpuThreads: 48,
+        cpuSpeed: "2.80GHz",
+        ramSize: "256GB DDR4",
+        ramType: "ECC",
+        diskSize: "2x 2TB NVMe",
+        diskType: "SSD",
+        createdAt: "Sep 15, 2023",
+        daysActive: 385,
+        incomingBandwidth: "50G",
+        outgoingBandwidth: "20G"
       },
       {
         id: 2,
@@ -87,7 +99,19 @@ export class MemStorage implements IStorage {
         disk: 80,
         bandwidth: 90,
         incomingTraffic: 70,
-        outgoingTraffic: 70
+        outgoingTraffic: 70,
+        cpuModel: null,
+        cpuCores: null,
+        cpuThreads: null,
+        cpuSpeed: null,
+        ramSize: null,
+        ramType: null,
+        diskSize: null,
+        diskType: null,
+        createdAt: null,
+        daysActive: null,
+        incomingBandwidth: null,
+        outgoingBandwidth: null
       },
       {
         id: 3,

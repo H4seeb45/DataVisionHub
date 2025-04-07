@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { 
   Search, 
   Plus,
@@ -98,8 +99,10 @@ export default function Servers() {
               {filteredServers.map((server) => (
                 <TableRow key={server.id} className="hover:bg-muted/30">
                   <TableCell className="font-medium">
-                    <div>{server.ip}</div>
-                    <div className="text-sm text-muted-foreground">{server.type}</div>
+                    <Link href={`/servers/${server.id}`} className="hover:underline text-foreground">
+                      <div>{server.ip}</div>
+                      <div className="text-sm text-muted-foreground">{server.type}</div>
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-1.5">

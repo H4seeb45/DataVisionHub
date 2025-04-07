@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Dashboard from "@/pages/Dashboard";
 import Servers from "@/pages/Servers";
+import ServerDetails from "@/pages/ServerDetails";
 import IpAddresses from "@/pages/IpAddresses";
 import CloudStorage from "@/pages/CloudStorage";
 import Payments from "@/pages/Payments";
@@ -19,6 +20,7 @@ function Router() {
         <Switch>
           <Route path="/" component={Dashboard} />
           <Route path="/servers" component={Servers} />
+          <Route path="/servers/:id" component={ServerDetails} />
           <Route path="/ip-addresses" component={IpAddresses} />
           <Route path="/cloud-storage" component={CloudStorage} />
           <Route path="/payments" component={Payments} />
