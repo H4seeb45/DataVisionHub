@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import {
@@ -7,9 +8,11 @@ import {
   HardDrive, 
   CreditCard, 
   Settings,
-  PlusIcon,
+  Sun,
+  Moon,
   Zap
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface NavItemProps {
   href: string;
@@ -38,6 +41,38 @@ const NavItem = ({ href, icon, label, active }: NavItemProps) => {
 
 export default function Sidebar() {
   const [location] = useLocation();
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    
+    // Apply theme to document
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+    
+    // Save theme preference
+    localStorage.setItem("theme", newTheme);
+  };
+  
+  // Initialize theme on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" || "dark";
+    setTheme(savedTheme);
+    
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+  }, []);
   
   return (
     <aside className="sidebar bg-background w-64 flex-shrink-0 border-r border-border h-screen overflow-y-auto fixed hidden md:block">
@@ -119,6 +154,22 @@ export default function Sidebar() {
             <p className="text-muted-foreground text-sm">Add the Support Plan now!</p>
           </div>
         </div>
+      </div>
+      
+      {/* Theme Toggle */}
+      <div className="mx-4 mt-6 flex justify-center">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          className="rounded-full"
+        >
+          {theme === "dark" ? (
+            <Sun className="h-5 w-5 text-yellow-500" />
+          ) : (
+            <Moon className="h-5 w-5 text-purple-500" />
+          )}
+        </Button>
       </div>
     </aside>
   );

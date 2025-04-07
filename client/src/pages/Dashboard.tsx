@@ -32,13 +32,30 @@ export default function Dashboard() {
       
       {/* Dashboard Content */}
       <div className="grid grid-cols-12 gap-6">
-        <ServersTable />
-        <div className="col-span-12 xl:col-span-4 grid grid-cols-1 gap-6">
+        {/* Traffic Chart (Top Left) */}
+        <div className="col-span-12 lg:col-span-8">
+          <TrafficChart />
+        </div>
+        
+        {/* Upcoming Payments (Top Right) */}
+        <div className="col-span-12 lg:col-span-4">
+          <PaymentsCard />
+        </div>
+        
+        {/* Servers Table (Middle) */}
+        <div className="col-span-12">
+          <ServersTable />
+        </div>
+        
+        {/* Bandwidth Commit (Bottom Left) */}
+        <div className="col-span-12 lg:col-span-8">
           <BandwidthCommit />
+        </div>
+        
+        {/* IP Summary (Bottom Right) */}
+        <div className="col-span-12 lg:col-span-4">
           <IPSummary />
         </div>
-        <TrafficChart />
-        <PaymentsCard />
       </div>
     </>
   );

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { 
   MoreHorizontal, 
-  Plus, 
   ChevronLeft, 
   ChevronRight 
 } from "lucide-react";
@@ -22,14 +21,14 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Server data
 const servers = [
   {
     id: 1,
     ip: "192.168.1.24",
-    type: "d1.xlarge",
+    type: "d1.c1.large",
     status: "on",
     location: "Phoenix",
     os: "Ubuntu",
@@ -41,7 +40,7 @@ const servers = [
   {
     id: 2,
     ip: "192.168.1.23",
-    type: "d1.medium",
+    type: "d1.c2.medium",
     status: "on",
     location: "Phoenix",
     os: "Debian",
@@ -53,7 +52,7 @@ const servers = [
   {
     id: 3,
     ip: "192.168.1.22",
-    type: "d2.medium",
+    type: "d1.c2.medium",
     status: "on",
     location: "Phoenix",
     os: "CentOS",
@@ -65,7 +64,7 @@ const servers = [
   {
     id: 4,
     ip: "192.168.1.21",
-    type: "d2.large",
+    type: "d2.d2.large",
     status: "off",
     location: "Ashburn",
     os: "AlmaLinux",
@@ -80,93 +79,109 @@ export default function ServersTable() {
   const [rowsPerPage, setRowsPerPage] = useState("100");
   
   return (
-    <Card className="col-span-12">
-      <CardHeader className="px-5 py-4">
-      </CardHeader>
-      <CardContent>
+    <Card className="bg-card rounded-lg overflow-hidden">
+      <CardContent className="p-4 pt-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center space-x-3">
+            <h3 className="font-semibold">Servers</h3>
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              className="text-muted-foreground hover:text-primary"
+            >
+              →
+            </Button>
+          </div>
+          
+          <div className="flex items-center space-x-3">
+            <div className="text-sm font-medium">Status</div>
+            <div className="text-sm font-medium">Location</div>
+            <div className="text-sm font-medium">OS</div>
+            <div className="text-sm font-medium">CPU</div>
+            <div className="text-sm font-medium">RAM</div>
+            <div className="text-sm font-medium">Disk</div>
+            <div className="text-sm font-medium">Bandwidth</div>
+            <div className="text-sm font-medium">Actions</div>
+          </div>
+        </div>
+        
         <div className="overflow-x-auto">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Servers</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>OS</TableHead>
-                <TableHead>CPU</TableHead>
-                <TableHead>RAM</TableHead>
-                <TableHead>Disk</TableHead>
-                <TableHead>Bandwidth</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
             <TableBody>
               {servers.map((server) => (
-                <TableRow key={server.id}>
-                  <TableCell>
+                <TableRow key={server.id} className="border-b border-border/50">
+                  <TableCell className="py-3 pl-0">
                     <div className="font-medium">{server.ip}</div>
                     <div className="text-sm text-muted-foreground">{server.type}</div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="py-3">
                     <div className="flex items-center">
                       <span className={`h-2.5 w-2.5 rounded-full mr-2 ${
                         server.status === "on" ? "bg-green-500" : "bg-red-500"
                       }`}></span>
-                      <span>{server.status === "on" ? "On" : "Off"}</span>
+                      <span className="text-sm">
+                        {server.status === "on" ? "On" : "Off"}
+                      </span>
                     </div>
                   </TableCell>
-                  <TableCell>{server.location}</TableCell>
-                  <TableCell>{server.os}</TableCell>
-                  <TableCell>
-                    <div className="w-24">
+                  <TableCell className="py-3 text-sm">{server.location}</TableCell>
+                  <TableCell className="py-3 text-sm">{server.os}</TableCell>
+                  <TableCell className="py-3">
+                    <div className="w-20">
                       <Progress 
                         value={server.cpu} 
-                        indicatorColor={server.status === "on" ? "bg-primary" : "bg-gray-500"} 
-                        className="bg-muted/50" 
+                        className="h-2 rounded-sm bg-gray-200" 
+                        style={{
+                          '--progress-background': server.status === "on" ? 
+                            '#8554e5' : '#a1a1aa'  // Primary color for "on", gray for "off"
+                        } as React.CSSProperties}
                       />
                       <div className="text-xs text-muted-foreground mt-1">{server.cpu}%</div>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="w-24">
+                  <TableCell className="py-3">
+                    <div className="w-20">
                       <Progress 
                         value={server.ram} 
-                        indicatorColor={server.status === "on" ? "bg-secondary" : "bg-gray-500"} 
-                        className="bg-muted/50" 
+                        className="h-2 rounded-sm bg-gray-200" 
+                        style={{
+                          '--progress-background': server.status === "on" ? 
+                            '#ab54e5' : '#a1a1aa'  // Secondary purple for "on"
+                        } as React.CSSProperties}
                       />
                       <div className="text-xs text-muted-foreground mt-1">{server.ram}%</div>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="w-24">
+                  <TableCell className="py-3">
+                    <div className="w-20">
                       <Progress 
                         value={server.disk} 
-                        indicatorColor={server.status === "on" ? "bg-purple-500" : "bg-gray-500"} 
-                        className="bg-muted/50" 
+                        className="h-2 rounded-sm bg-gray-200" 
+                        style={{
+                          '--progress-background': server.status === "on" ? 
+                            '#d154e5' : '#a1a1aa'  // Darker purple for "on"
+                        } as React.CSSProperties}
                       />
                       <div className="text-xs text-muted-foreground mt-1">{server.disk}%</div>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="w-24">
+                  <TableCell className="py-3">
+                    <div className="w-20">
                       <Progress 
                         value={server.bandwidth} 
-                        indicatorColor={
-                          server.status === "off" 
-                            ? "bg-gray-500" 
-                            : server.bandwidth >= 90 
-                              ? "bg-red-500" 
-                              : server.bandwidth >= 80 
-                                ? "bg-yellow-500" 
-                                : "bg-orange-500"
-                        } 
-                        className="bg-muted/50" 
+                        className="h-2 rounded-sm bg-gray-200" 
+                        style={{
+                          '--progress-background': server.status === "off" ? 
+                            '#a1a1aa' : server.bandwidth >= 90 ? 
+                              '#f43f5e' : '#eab308'  // Gray for "off", red for high usage, yellow for medium
+                        } as React.CSSProperties}
                       />
                       <div className="text-xs text-muted-foreground mt-1">{server.bandwidth}%</div>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon">
-                      <MoreHorizontal className="h-5 w-5" />
+                  <TableCell className="py-3 pr-0 text-right">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -199,12 +214,12 @@ export default function ServersTable() {
           </div>
           
           <div className="flex">
-            <Button variant="ghost" size="icon" disabled>
-              <ChevronLeft className="h-5 w-5" />
+            <Button variant="ghost" size="icon" disabled className="h-8 w-8 p-0">
+              <ChevronLeft className="h-4 w-4" />
             </Button>
             
-            <Button variant="ghost" size="icon" disabled>
-              <ChevronRight className="h-5 w-5" />
+            <Button variant="ghost" size="icon" disabled className="h-8 w-8 p-0">
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
