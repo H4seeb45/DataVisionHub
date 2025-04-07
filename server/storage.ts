@@ -18,19 +18,19 @@ export interface IStorage {
   // Dashboard methods
   getTrafficData(): TrafficData[];
   getServers(): Server[];
-  getPaymentInfo(): Payment;
-  getBandwidthCommit(): BandwidthCommitData;
-  getIpSummary(): IpSummaryData;
+  getPaymentInfo(): Payment | null;
+  getBandwidthCommit(): BandwidthCommitData | null;
+  getIpSummary(): IpSummaryData | null;
 }
 
 // Memory storage implementation
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
-  private servers: Server[];
-  private trafficData: TrafficData[];
-  private payment: Payment;
-  private bandwidthCommit: BandwidthCommitData;
-  private ipSummary: IpSummaryData;
+  private servers: Server[] = [];
+  private trafficData: TrafficData[] = [];
+  private payment: Payment | null = null;
+  private bandwidthCommit: BandwidthCommitData | null = null;
+  private ipSummary: IpSummaryData | null = null;
   private currentUserId: number;
 
   constructor() {
@@ -71,7 +71,9 @@ export class MemStorage implements IStorage {
         cpu: 10,
         ram: 40,
         disk: 70,
-        bandwidth: 80
+        bandwidth: 80,
+        incomingTraffic: 70,
+        outgoingTraffic: 80
       },
       {
         id: 2,
@@ -82,8 +84,10 @@ export class MemStorage implements IStorage {
         os: "Debian",
         cpu: 20,
         ram: 50,
-        disk: 60,
-        bandwidth: 90
+        disk: 80,
+        bandwidth: 90,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
       },
       {
         id: 3,
@@ -95,7 +99,9 @@ export class MemStorage implements IStorage {
         cpu: 30,
         ram: 60,
         disk: 70,
-        bandwidth: 100
+        bandwidth: 100,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
       },
       {
         id: 4,
@@ -107,7 +113,93 @@ export class MemStorage implements IStorage {
         cpu: 70,
         ram: 70,
         disk: 70,
-        bandwidth: 70
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 5,
+        ip: "192.168.1.19",
+        type: "s1.small",
+        status: "on",
+        location: "Phoenix", 
+        os: "RockyLinux",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 6,
+        ip: "192.168.1.17",
+        type: "s2.small",
+        status: "on",
+        location: "Ashburn",
+        os: "Ubuntu",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 7,
+        ip: "192.168.1.16",
+        type: "s1.small",
+        status: "on",
+        location: "Phoenix",
+        os: "Ubuntu",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 8,
+        ip: "192.168.1.18",
+        type: "s1.small",
+        status: "off",
+        location: "Phoenix",
+        os: "Ubuntu",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 9,
+        ip: "192.168.1.15",
+        type: "s1.small",
+        status: "on",
+        location: "Ashburn",
+        os: "Ubuntu",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
+      },
+      {
+        id: 10,
+        ip: "192.168.1.14",
+        type: "s1.small",
+        status: "on",
+        location: "Phoenix",
+        os: "Ubuntu",
+        cpu: 70,
+        ram: 70,
+        disk: 70,
+        bandwidth: 70,
+        incomingTraffic: 70,
+        outgoingTraffic: 70
       }
     ];
     
@@ -165,15 +257,15 @@ export class MemStorage implements IStorage {
     return this.servers;
   }
 
-  getPaymentInfo(): Payment {
+  getPaymentInfo(): Payment | null {
     return this.payment;
   }
 
-  getBandwidthCommit(): BandwidthCommitData {
+  getBandwidthCommit(): BandwidthCommitData | null {
     return this.bandwidthCommit;
   }
 
-  getIpSummary(): IpSummaryData {
+  getIpSummary(): IpSummaryData | null {
     return this.ipSummary;
   }
 }

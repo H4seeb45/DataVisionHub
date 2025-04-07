@@ -26,6 +26,8 @@ export const servers = pgTable("servers", {
   ram: integer("ram").notNull(),
   disk: integer("disk").notNull(),
   bandwidth: integer("bandwidth").notNull(),
+  incomingTraffic: integer("incoming_traffic").notNull().default(70),
+  outgoingTraffic: integer("outgoing_traffic").notNull().default(70),
 });
 
 export const insertServerSchema = createInsertSchema(servers).omit({
