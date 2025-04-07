@@ -1,13 +1,13 @@
 // This file serves as the entry point for Vercel serverless functions
-const express = require('express');
-const { registerRoutes } = require('../server/routes');
-const { storage } = require('../server/storage');
+import express from 'express';
+import { registerRoutes } from '../server/routes.js';
+import { storage } from '../server/storage.js';
 
 const app = express();
 app.use(express.json());
 
 // Register all routes
-registerRoutes(app);
+await registerRoutes(app);
 
-// Handle all requests
-module.exports = app;
+// Export for Vercel serverless function
+export default app;
