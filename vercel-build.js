@@ -1,14 +1,19 @@
 // This script runs the build process for Vercel deployment
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 console.log('Starting Vercel build process...');
 
 try {
-  // Run the normal build process
-  console.log('Building application...');
-  execSync('npm run build', { stdio: 'inherit' });
+  // Run the frontend-only build process
+  console.log('Building frontend application...');
+  execSync('node frontend-build.js', { stdio: 'inherit' });
   
   // Create a _redirects file for SPA routing
   console.log('Setting up SPA routing...');

@@ -1,20 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "node vercel-build.js",
+  "buildCommand": "node frontend-build.js",
   "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" }
-  ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index" },
     { "handle": "filesystem" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/(.*)", "dest": "/index.html", "status": 200 }
-  ],
-  "functions": {
-    "api/index.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
