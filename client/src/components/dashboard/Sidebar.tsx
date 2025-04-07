@@ -23,7 +23,7 @@ const NavItem = ({ href, icon, label, active }: NavItemProps) => {
     <li>
       <Link href={href}>
         <a className={cn(
-          "flex items-center px-4 py-3 rounded-lg mx-2 mb-1 transition-colors",
+          "flex items-center px-4 py-3 rounded-sm mx-2 mb-1 transition-colors",
           active 
             ? "bg-primary text-white" 
             : "text-muted-foreground hover:bg-secondary hover:text-white"

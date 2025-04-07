@@ -32,11 +32,13 @@ export default function Dashboard() {
       
       {/* Dashboard Content */}
       <div className="grid grid-cols-12 gap-6">
+        <ServersTable />
+        <div className="col-span-12 xl:col-span-4 grid grid-cols-1 gap-6">
+          <BandwidthCommit />
+          <IPSummary />
+        </div>
         <TrafficChart />
         <PaymentsCard />
-        <BandwidthCommit />
-        <IPSummary />
-        <ServersTable />
       </div>
     </>
   );

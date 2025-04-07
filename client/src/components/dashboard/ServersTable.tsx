@@ -81,51 +81,7 @@ export default function ServersTable() {
   
   return (
     <Card className="col-span-12">
-      <CardHeader>
-        <div className="flex flex-wrap justify-between items-center">
-          <div className="flex items-center space-x-2 mb-2 md:mb-0">
-            <CardTitle>Servers</CardTitle>
-            <Button variant="ghost" size="icon" className="text-primary">
-              <Plus className="h-5 w-5" />
-            </Button>
-          </div>
-          
-          <div className="flex flex-wrap items-center gap-2">
-            <Select defaultValue="status">
-              <SelectTrigger className="w-[130px] bg-muted text-foreground">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="status">Status</SelectItem>
-                <SelectItem value="online">Online</SelectItem>
-                <SelectItem value="offline">Offline</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select defaultValue="location">
-              <SelectTrigger className="w-[130px] bg-muted text-foreground">
-                <SelectValue placeholder="Location" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="location">Location</SelectItem>
-                <SelectItem value="phoenix">Phoenix</SelectItem>
-                <SelectItem value="amsterdam">Amsterdam</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select defaultValue="os">
-              <SelectTrigger className="w-[130px] bg-muted text-foreground">
-                <SelectValue placeholder="OS" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="os">OS</SelectItem>
-                <SelectItem value="ubuntu">Ubuntu</SelectItem>
-                <SelectItem value="centos">CentOS</SelectItem>
-                <SelectItem value="debian">Debian</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+      <CardHeader className="px-5 py-4">
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">

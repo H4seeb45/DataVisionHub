@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function BandwidthCommit() {
   return (
-    <Card className="col-span-12 md:col-span-6 xl:col-span-4">
+    <Card>
       <CardHeader>
         <CardTitle className="flex items-center">
           <Zap className="h-5 w-5 mr-2 text-primary" />

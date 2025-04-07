@@ -14,18 +14,18 @@ import { cn } from "@/lib/utils";
 
 // Sample data for the traffic chart
 const trafficData = [
-  { name: "JAN", traffic: 10 },
-  { name: "FEB", traffic: 25 },
-  { name: "MAR", traffic: 30 },
-  { name: "APR", traffic: 22 },
-  { name: "MAY", traffic: 28 },
-  { name: "JUN", traffic: 35 },
-  { name: "JUL", traffic: 25 },
-  { name: "AUG", traffic: 38 },
-  { name: "SEP", traffic: 30 },
-  { name: "OCT", traffic: 15 },
-  { name: "NOV", traffic: 25 },
-  { name: "DEC", traffic: 35 }
+  { name: "JAN", incoming: 10, outgoing: 8 },
+  { name: "FEB", incoming: 25, outgoing: 15 },
+  { name: "MAR", incoming: 30, outgoing: 20 },
+  { name: "APR", incoming: 22, outgoing: 14 },
+  { name: "MAY", incoming: 28, outgoing: 22 },
+  { name: "JUN", incoming: 35, outgoing: 25 },
+  { name: "JUL", incoming: 25, outgoing: 18 },
+  { name: "AUG", incoming: 38, outgoing: 28 },
+  { name: "SEP", incoming: 30, outgoing: 22 },
+  { name: "OCT", incoming: 15, outgoing: 12 },
+  { name: "NOV", incoming: 25, outgoing: 18 },
+  { name: "DEC", incoming: 35, outgoing: 24 }
 ];
 
 type TimeFilter = "15min" | "1hour" | "1day" | "1month" | "1year" | "all";
@@ -92,9 +92,13 @@ export default function TrafficChart() {
             margin={{ top: 10, right: 30, left: 0, bottom: 5 }}
           >
             <defs>
-              <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+              <linearGradient id="colorIncoming" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#FF9800" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#FF9800" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorOutgoing" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#2196F3" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#2196F3" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid 
@@ -132,10 +136,19 @@ export default function TrafficChart() {
             />
             <Area 
               type="monotone" 
-              dataKey="traffic" 
-              stroke="hsl(var(--primary))" 
+              dataKey="incoming" 
+              name="Incoming"
+              stroke="#FF9800" 
               fillOpacity={1}
-              fill="url(#colorTraffic)" 
+              fill="url(#colorIncoming)" 
+            />
+            <Area 
+              type="monotone" 
+              dataKey="outgoing" 
+              name="Outgoing"
+              stroke="#2196F3" 
+              fillOpacity={1}
+              fill="url(#colorOutgoing)" 
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -167,7 +180,7 @@ function TimeFilterButton({ label, active, onClick }: TimeFilterButtonProps) {
     <Button 
       variant={active ? "default" : "secondary"}
       className={cn(
-        "px-3 py-1 text-sm rounded-md mr-1 mb-1 md:mb-0 h-auto",
+        "px-3 py-1 text-sm rounded-sm mr-1 mb-1 md:mb-0 h-auto",
         active ? "bg-primary text-white" : "bg-muted text-muted-foreground"
       )}
       onClick={onClick}
